@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://LISTA.gd" type="Script" id=1]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="texto" type="LineEdit" parent="."]
+margin_left = 85.0
+margin_top = 200.0
+margin_right = 214.0
+margin_bottom = 347.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = -1.0
+margin_top = 33.0
+margin_right = 95.0
+margin_bottom = 85.0
+text = "EXERCICIO 1"
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 1.0
+margin_top = 108.0
+margin_right = 80.0
+margin_bottom = 122.0
+text = "EXERCICIO 2"
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 2.0
+margin_top = 215.0
+margin_right = 96.0
+margin_bottom = 262.0
+text = "EXERCICIO 3"
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 370.0
+margin_right = 83.0
+margin_bottom = 401.0
+text = "EXERCICIO 4
+"
+
+[node name="numero" type="LineEdit" parent="."]
+margin_left = 89.0
+margin_top = 364.0
+margin_right = 209.0
+margin_bottom = 403.0
+
+[node name="dado2" type="LineEdit" parent="."]
+margin_left = 90.0
+margin_top = 141.0
+margin_right = 204.0
+margin_bottom = 179.0
+
+[node name="dado1" type="LineEdit" parent="."]
+margin_left = 89.0
+margin_top = 93.0
+margin_right = 203.0
+margin_bottom = 131.0
+
+[node name="Button4" type="Button" parent="."]
+margin_left = 219.0
+margin_top = 373.0
+margin_right = 252.0
+margin_bottom = 403.0
+text = "OK"
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 216.0
+margin_top = 120.0
+margin_right = 246.0
+margin_bottom = 150.0
+text = "OK"
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 222.0
+margin_top = 261.0
+margin_right = 254.0
+margin_bottom = 290.0
+text = "OK"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 103.0
+margin_top = 22.0
+margin_right = 135.0
+margin_bottom = 52.0
+text = "OK"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 285.0
+margin_top = 17.0
+margin_right = 696.0
+margin_bottom = 399.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="saida" type="Label" parent="ColorRect"]
+margin_left = 27.0
+margin_top = 18.0
+margin_right = 379.0
+margin_bottom = 355.0
+autowrap = true
+
+[connection signal="pressed" from="Button4" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
