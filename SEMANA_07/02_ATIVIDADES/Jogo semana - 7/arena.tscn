@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://personagem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://arena.gd" type="Script" id=2]
+[ext_resource path="res://ArchitectsDaughter.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://pontuação.gd" type="Script" id=4]
+[ext_resource path="res://Camera2D.gd" type="Script" id=5]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_bloom = 0.5
+glow_blend_mode = 0
+glow_bicubic_upscale = true
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+use_filter = true
+font_data = ExtResource( 3 )
+
+[node name="arena" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="KinematicBody2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 640, 320 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="timer_spwan_inimigo" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="timer_dificuldade" type="Timer" parent="."]
+autostart = true
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+margin_right = 1280.0
+margin_bottom = 640.0
+
+[node name="pontuação" type="Label" parent="UI/Control"]
+margin_right = 1280.0
+margin_bottom = 53.0
+rect_scale = Vector2( 1.00111, 0.994876 )
+custom_fonts/font = SubResource( 2 )
+text = "0"
+align = 1
+script = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 640, 360 )
+current = true
+script = ExtResource( 5 )
+
+[node name="timer_camera" type="Timer" parent="Camera2D"]
+
+[connection signal="timeout" from="timer_spwan_inimigo" to="." method="_on_timer_spwan_inimigo_timeout"]
+[connection signal="timeout" from="timer_dificuldade" to="." method="_on_timer_dificuldade_timeout"]
+[connection signal="timeout" from="Camera2D/timer_camera" to="Camera2D" method="_on_timer_camera_timeout"]

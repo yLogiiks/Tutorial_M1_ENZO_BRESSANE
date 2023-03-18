@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://22790bfd32c0717.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Sprite
+
+var velocidade = 170
+var mov = Vector2.ZERO
+var atordoado = false
+var recuo = 6
+var hp = 2
+
+var particula_sangue = preload(\"res://particulaSangue.tscn\")
+
+func _process(delta: float) -> void:
+	if Global.jogador != null and atordoado == false:
+		mov = global_position.direction_to(Global.jogador.global_position)
+	elif atordoado:
+		mov = lerp(mov, Vector2.ZERO, 0.3)
+		
+	global_position += mov * velocidade * delta
+	
+	if hp <= 0 and Global.criacao_no_pai != null:
+		if Global.camera != null:
+			Global.camera.tremer_tela(50, 0.1)
+		Global.pontos += 10
+		var instancia_particula_sangue = Global.instance_node(particula_sangue, global_position, Global.criacao_no_pai)
+		instancia_particula_sangue.rotation = mov.angle()
+		queue_free()
+
+func _on_hitbox_area_entered(area):
+	if area.is_in_group(\"dano\") and atordoado == false:
+		modulate = Color.white
+		area.get_parent().queue_free()
+		mov = -mov * recuo
+		atordoado = true
+		hp -= 1
+		$timer_recuo.start()
+	
+
+
+func _on_timer_recuo_timeout():
+	modulate = Color(\"d87373\")
+	atordoado = false
+"
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 157.876
+
+[node name="Inimigo" type="Sprite"]
+modulate = Color( 0.847059, 0.45098, 0.45098, 1 )
+position = Vector2( 495, 112 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
+script = SubResource( 2 )
+
+[node name="hitbox" type="Area2D" parent="." groups=["inimigo"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2( -9.99951, 0 )
+shape = SubResource( 1 )
+
+[node name="timer_recuo" type="Timer" parent="."]
+wait_time = 0.15
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="timer_recuo" to="." method="_on_timer_recuo_timeout"]
